@@ -1,0 +1,20 @@
+/* ProductCard.css */
+.card {
+    cursor: pointer;
+    width: 18%;
+}
+
+.card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    /* Limit to 2 lines */
+    cursor: pointer;
+    /* Ensure the cursor indicates that the text is interactable */
+}
+
+.icon-button {
+    padding: 0;
+}

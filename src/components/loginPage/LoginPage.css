@@ -1,0 +1,35 @@
+.rootContainer {
+    display: flex;
+    justify-content: space-between;
+    height: 100vh;
+    width: 100%;
+}
+
+.imageContainer {
+    height: 100%;
+    width: 50%;
+    margin-top: 10px;
+}
+
+.loginContainer {
+    padding: 7%;
+    width: 50%;
+}
+
+.checkBoxContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.titleContainer {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
+.signUp {
+    display: flex;
+    align-content: center;
+}

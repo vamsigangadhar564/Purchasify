@@ -1,0 +1,15 @@
+/* CategoryPage.css */
+.category-title {
+    font-weight: bold;
+    text-transform: capitalize;
+    border-bottom: 2px solid #FFA500;
+    display: inline-block;
+}
+
+.card-container {
+    display: flex;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* Space between cards */
+}
