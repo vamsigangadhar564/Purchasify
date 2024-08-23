@@ -78,7 +78,7 @@ function App() {
                   {...route}
                   element={
                     route.isProtected ? (
-                      loginReducer.auth ? (
+                      localStorage.getItem("app_token") ? (
                         route.component
                       ) : (
                         <Navigate to='/login' />
