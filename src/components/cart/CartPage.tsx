@@ -82,50 +82,25 @@ const CartPage = () => {
       <Box sx={{ display: "flex", margin: 3 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8}>
-            <Paper
-              sx={{
-                maxHeight: "70vh", // Controls the height of the scrollable container
-                overflowY: "auto", // Allows scrolling without showing the scrollbar
-                padding: 2,
-                backgroundColor: "#f9f9f9",
-                boxShadow: "0px 3px 8px rgba(0,0,0,0.1)",
-                /* Hides the scrollbar */
-                scrollbarWidth: "none", // For Firefox
-                "&::-webkit-scrollbar": {
-                  width: "0px", // For Chrome, Safari, and Edge
-                },
-              }}>
+            <Paper className='cart-paper'>
               {cartItems.length > 0 ? (
                 cartItems.map((item) => (
                   <Slide direction='up' in key={item.id}>
-                    <Card
-                      sx={{
-                        display: "flex",
-                        marginBottom: 3,
-                        padding: 2,
-                        borderRadius: "12px",
-                        boxShadow: "0px 5px 10px rgba(0,0,0,0.1)",
-                        "&:hover": {
-                          boxShadow: "0px 8px 15px rgba(0,0,0,0.2)",
-                        },
-                      }}>
+                    <Card className='cart-card'>
                       <CardMedia
                         component='img'
-                        sx={{ width: 150, height: 150, borderRadius: "12px" }}
+                        sx={{
+                          width: 150,
+                          height: 150,
+                          borderRadius: "12px",
+                          objectFit: "contain",
+                        }}
                         image={item.image}
                         alt={item.title}
                       />
-                      <CardContent
-                        sx={{
-                          flex: 1,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}>
+                      <CardContent className='cart-content'>
                         <Box>
-                          <Typography
-                            variant='h6'
-                            sx={{ fontWeight: "bold", fontSize: "1.2rem" }}>
+                          <Typography variant='h6' className='cart-title'>
                             {item.title}
                           </Typography>
                           <Typography
@@ -135,23 +110,11 @@ const CartPage = () => {
                             {item.description}
                           </Typography>
                         </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                          }}>
-                          <Typography
-                            variant='h6'
-                            sx={{ fontWeight: "bold", fontSize: "1.3rem" }}>
+                        <Box className='cart-actions'>
+                          <Typography variant='h6' className='cart-price'>
                             ${item.price}
                           </Typography>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              marginTop: 1,
-                            }}>
+                          <Box className='cart-quantity'>
                             <IconButton
                               onClick={() => {
                                 if (item.count > 1) {
@@ -168,7 +131,7 @@ const CartPage = () => {
                               }}>
                               <Remove />
                             </IconButton>
-                            <Typography sx={{ marginX: 2, fontWeight: "bold" }}>
+                            <Typography className='cart-count'>
                               {item.count}
                             </Typography>
                             <IconButton
@@ -200,14 +163,8 @@ const CartPage = () => {
           {/* Right section - Summary (1/3 of the screen) */}
           <Grid item xs={12} md={4}>
             <Paper
-              sx={{
-                position: "sticky",
-                top: "16px",
-                padding: 3,
-                backgroundColor: "#f0f4f8",
-                boxShadow: "0px 5px 15px rgba(0,0,0,0.1)",
-                borderRadius: "12px",
-              }}>
+              className='summary-paper'
+              sx={{ backgroundColor: "#f0f4f8" }}>
               <Typography variant='h6'>Order Summary</Typography>
               <Divider sx={{ my: 2 }} />
               <Typography variant='body1'>
@@ -221,11 +178,7 @@ const CartPage = () => {
                 color='primary'
                 onClick={handleProceedToBuy}
                 fullWidth
-                sx={{
-                  marginTop: 3,
-                  paddingY: 1.5,
-                  fontWeight: "bold",
-                }}>
+                className='summary-button'>
                 Proceed to Buy
               </Button>
             </Paper>
