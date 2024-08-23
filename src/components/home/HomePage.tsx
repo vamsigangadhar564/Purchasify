@@ -6,19 +6,12 @@ import {
   getUserDetails,
   setLoginStatus,
 } from "../../reducers";
-import jwtDecode from "jwt-decode";
 import Header from "../header/Header";
 import { Box, CircularProgress } from "@mui/material";
 import { RootState } from "../../redux/store";
 import CategoryChip from "./CategoryChip";
 import ProductCard from "../productCard/ProductCard";
 import "./HomePage.css"; // Import the CSS file
-
-interface UserDetails {
-  iat: number;
-  sub: number;
-  user: string;
-}
 
 export interface Product {
   id: number;
@@ -33,7 +26,6 @@ type Category = Product; // Reuse the Product interface for Category
 
 const HomePage: React.FC = () => {
   const dispatch = useDispatch();
-  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [allCategories, setAllCategories] = useState<string[]>([]);
   const [loader, setLoader] = useState<boolean>(false);
@@ -63,22 +55,9 @@ const HomePage: React.FC = () => {
   }, [categoryReducer]);
 
   useEffect(() => {
-    const token = localStorage.getItem("app_token");
-    if (token) {
-      dispatch(setLoginStatus(false));
-      setUserDetails(jwtDecode(token));
-    } else {
-      setUserDetails(null);
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (userDetails?.sub) {
-      dispatch(getUserDetails({ id: userDetails?.sub }));
-      dispatch(getAllProducts());
-      dispatch(getAllCategories());
-    }
-  }, [userDetails, dispatch]);
+    dispatch(getAllProducts());
+    dispatch(getAllCategories());
+  }, []);
 
   return (
     <>

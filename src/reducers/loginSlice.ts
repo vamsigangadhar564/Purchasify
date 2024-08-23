@@ -31,12 +31,14 @@ interface userId {
 interface LoginState {
     userDetails: UserDetails | {};
     isLoginSuccess: boolean;
+    auth: boolean;
 }
 
 // Define the initial state with type
 const initialState: LoginState = {
     userDetails: {},
     isLoginSuccess: false,
+    auth: false
 };
 
 export const loginSlice = createSlice({
@@ -64,10 +66,16 @@ export const loginSlice = createSlice({
         registerUser() {
             // Logic for user registration
         },
+        setAuth(state, action: PayloadAction<boolean>) {
+            return {
+                ...state,
+                auth: action.payload,
+            };
+        }
     }
 });
 
 // Action creators are generated for each case reducer function
-export const { userLogin, setUserDetails, registerUser, getUserDetails, setLoginStatus } = loginSlice.actions;
+export const { userLogin, setUserDetails, registerUser, getUserDetails, setLoginStatus, setAuth } = loginSlice.actions;
 
 export default loginSlice.reducer;

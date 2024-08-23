@@ -1,5 +1,5 @@
 import loaderReducer, { setLoader } from "./loaderSlice";
-import loginReducer, { userLogin, setUserDetails, registerUser, setLoginStatus, getUserDetails } from "./loginSlice";
+import loginReducer, { userLogin, setUserDetails, registerUser, setLoginStatus, getUserDetails, setAuth } from "./loginSlice";
 import alertReducer, { successAlert, errorAlert, closeAlert } from "./alertSlice";
 import categoryReducer, { getAllCategories, setAllCategories, getCategory } from "./categorySlice";
 import productReducer, { getAllProducts, getProduct, setAllProducts, setProductDetails } from "./productSlice";
@@ -31,5 +31,6 @@ export {
     addToCart,
     setProductsToCart,
     removeFromCart,
-    clearCart
+    clearCart,
+    setAuth
 };
