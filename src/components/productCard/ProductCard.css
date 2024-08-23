@@ -2,6 +2,33 @@
 .card {
     cursor: pointer;
     width: 18%;
+    margin-bottom: 16px;
+        /* Add some margin for spacing between rows */
+    }
+    
+    /* Responsive design */
+    @media (max-width: 1200px) {
+        .card {
+            width: 23%;
+        }
+    }
+    
+    @media (max-width: 992px) {
+        .card {
+            width: 30%;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .card {
+            width: 48%
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .card {
+            width: 100%;
+        }
 }
 
 .card-title {
@@ -10,9 +37,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
-    /* Limit to 2 lines */
     cursor: pointer;
-    /* Ensure the cursor indicates that the text is interactable */
 }
 
 .icon-button {

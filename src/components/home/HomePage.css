@@ -7,19 +7,71 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* Optional: Adds a semi-transparent background */
     z-index: 1000;
-    /* Ensure it appears on top of other elements */
 }
 
 .product-container {
     margin: 16px;
-    /* Adjusted margin to match previous inline styling */
 }
 
 .card-container {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
-    /* Space between cards */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 1200px) {
+
+    /* Large screens (desktops) */
+    .product-container {
+        margin: 12px;
+    }
+
+    .card-container {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 992px) {
+
+    /* Medium screens (tablets) */
+    .product-container {
+        margin: 8px;
+    }
+
+    .card-container {
+        flex-direction: row;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Small screens (tablets, large smartphones) */
+    .product-container {
+        margin: 8px;
+    }
+
+    .card-container {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .loader-container-home {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    /* Extra small screens (smartphones) */
+    .product-container {
+        margin: 4px;
+    }
+
+    .card-container {
+        gap: 4px;
+    }
 }
