@@ -96,6 +96,7 @@ const LoginPage: React.FC = () => {
           />
           <LoadingButton
             color='primary'
+            disabled={!userName.length || !password.length}
             onClick={handleSave}
             loading={loader}
             loadingPosition='end'
