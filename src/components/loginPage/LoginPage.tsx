@@ -13,6 +13,7 @@ import { userLogin } from "../../reducers";
 import { useNavigate } from "react-router-dom";
 import "./LoginPage.css"; // Import the CSS file
 import { RootState } from "../../redux/store"; // Import RootState type if you have it
+import LoadingButton from "@mui/lab/LoadingButton";
 
 interface LoginData {
   username: string;
@@ -25,17 +26,24 @@ const LoginPage: React.FC = () => {
 
   const [userName, setUserName] = useState<string>("mor_2314");
   const [password, setPassword] = useState<string>("83r5^_");
+  const [loader, setLoader] = useState<boolean>(false);
 
   // Assuming the state shape
   const isLoginSuccess = useSelector(
     (state: RootState) => state.loginReducer.isLoginSuccess
   );
 
+  const loaderReducer = useSelector((state: any) => state.loaderReducer);
+
   useEffect(() => {
     if (isLoginSuccess) {
       navigate("/home");
     }
   }, [isLoginSuccess, navigate]);
+
+  useEffect(() => {
+    setLoader(loaderReducer.loaderStatus);
+  }, [loaderReducer]);
 
   const handleSave = () => {
     const data: any = {
@@ -93,9 +101,14 @@ const LoginPage: React.FC = () => {
             />
             <Button sx={{ color: "black" }}>Reset Password</Button>
           </Box>
-          <Button onClick={handleSave} color='primary' variant='contained'>
-            sign in
-          </Button>
+          <LoadingButton
+            color='primary'
+            onClick={handleSave}
+            loading={loader}
+            loadingPosition='end'
+            variant='contained'>
+            <span> sign in</span>
+          </LoadingButton>
         </Stack>
         <Box className='signUp'>
           <Typography

@@ -24,8 +24,9 @@ export function* handleGetAllcategories(requestObj: any) {
         yield put(errorAlert({
             msg: "Failed to fetch all category products"
         }))
-        yield put(setLoader(false));
         console.log(error);
+    } finally {
+        yield put(setLoader(false));
     }
 
 }
@@ -40,7 +41,8 @@ export function* handleGetCategory(requestObj: any) {
         yield put(errorAlert({
             msg: "Failed to fetch category products"
         }))
-        yield put(setLoader(false));
         console.log(error);
+    } finally {
+        yield put(setLoader(false));
     }
 }

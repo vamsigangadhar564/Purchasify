@@ -51,7 +51,6 @@ export function* handleUserLogin(requestObj: any) {
         yield put(setLoginStatus(true));
     } catch (error) {
         yield put(errorAlert({ msg: "Failed to login" }));
-        yield put(setLoginStatus(false));
     } finally {
         yield put(setLoader(false));
     }

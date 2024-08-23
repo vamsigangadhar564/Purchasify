@@ -8,6 +8,7 @@ import {
   Grid,
   Rating,
   IconButton,
+  CircularProgress,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import Header from "../header/Header";
@@ -42,13 +43,20 @@ const ProductDetailsPage: React.FC = () => {
   const [cartItems, setCartItems] = useState<cart[]>([]);
   const [product, setProduct] = useState<ProductDetails>({} as ProductDetails);
   const [count, setCount] = useState(0);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const cartReducer = useSelector((state: any) => state.cartReducer);
+
+  const loaderReducer = useSelector((state: any) => state.loaderReducer);
 
   useEffect(() => {
     const item: any = cartItems.find((item) => item.id === product.id);
     setCount(item ? item.count : 0);
   }, [cartItems, product]);
+
+  useEffect(() => {
+    setLoader(loaderReducer.loaderStatus);
+  }, [loaderReducer]);
 
   useEffect(() => {
     setCartItems([...cartReducer.cartItems]);
@@ -99,68 +107,74 @@ const ProductDetailsPage: React.FC = () => {
   return (
     <>
       <Header />
-      <Box className='product-container'>
-        <Grid container spacing={4}>
-          {/* Image Section */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <img
-                src={product.image}
-                alt={product.title}
-                className='product-image'
-              />
-            </Box>
-          </Grid>
-
-          {/* Details Section */}
-          <Grid item xs={12} md={6}>
-            <Typography variant='h4' className='product-title'>
-              {product.title}
-            </Typography>
-            <Typography
-              variant='body1'
-              paragraph
-              className='product-description'>
-              {product.description}
-            </Typography>
-            <Box className='product-rating'>
-              <Typography variant='h6'>Rating:</Typography>
-              <Rating
-                name='product-rating'
-                value={product.rating?.rate || 0}
-                precision={0.1}
-                readOnly
-              />
-              <Typography variant='body2' sx={{ marginTop: 1 }}>
-                {product.rating?.count || "0"} reviews
-              </Typography>
-            </Box>
-            <Typography variant='h5' className='product-price'>
-              Price: ${product.price?.toFixed(2)}
-            </Typography>
-
-            {count > 0 ? (
-              <Box display='flex' alignItems='center'>
-                <IconButton onClick={handleDecrease}>
-                  <RemoveIcon />
-                </IconButton>
-                <span>{count}</span>
-                <IconButton onClick={handleIncrease}>
-                  <AddIcon />
-                </IconButton>
+      {loader ? ( // Show loader based on loader state
+        <Box className='loader-container-product'>
+          <CircularProgress color='inherit' />
+        </Box>
+      ) : (
+        <Box className='product-container'>
+          <Grid container spacing={4}>
+            {/* Image Section */}
+            <Grid item xs={12} md={6}>
+              <Box sx={{ display: "flex", justifyContent: "center" }}>
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  className='product-image'
+                />
               </Box>
-            ) : (
-              <Button
-                variant='contained'
-                color='primary'
-                onClick={handleToCart}
-                className='add-to-cart-button'>
-                Add to Cart
-              </Button>
-            )}
+            </Grid>
+
+            {/* Details Section */}
+            <Grid item xs={12} md={6}>
+              <Typography variant='h4' className='product-title'>
+                {product.title}
+              </Typography>
+              <Typography
+                variant='body1'
+                paragraph
+                className='product-description'>
+                {product.description}
+              </Typography>
+              <Box className='product-rating'>
+                <Typography variant='h6'>Rating:</Typography>
+                <Rating
+                  name='product-rating'
+                  value={product.rating?.rate || 0}
+                  precision={0.1}
+                  readOnly
+                />
+                <Typography variant='body2' sx={{ marginTop: 1 }}>
+                  {product.rating?.count || "0"} reviews
+                </Typography>
+              </Box>
+              <Typography variant='h5' className='product-price'>
+                Price: ${product.price?.toFixed(2)}
+              </Typography>
+
+              {count > 0 ? (
+                <Box display='flex' alignItems='center'>
+                  <IconButton onClick={handleDecrease}>
+                    <RemoveIcon />
+                  </IconButton>
+                  <span>{count}</span>
+                  <IconButton onClick={handleIncrease}>
+                    <AddIcon />
+                  </IconButton>
+                </Box>
+              ) : (
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={handleToCart}
+                  className='add-to-cart-button'>
+                  Add to Cart
+                </Button>
+              )}
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      )}
     </>
   );
 };

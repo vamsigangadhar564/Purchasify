@@ -8,16 +8,16 @@ import {
 } from "../../reducers";
 import jwtDecode from "jwt-decode";
 import Header from "../header/Header";
-// import ProductCard from "../ProductCard";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
 import { RootState } from "../../redux/store";
 import CategoryChip from "./CategoryChip";
 import ProductCard from "../productCard/ProductCard";
+import "./HomePage.css"; // Import the CSS file
 
 interface UserDetails {
-  iat: Number;
+  iat: number;
   sub: number;
-  user: String;
+  user: string;
 }
 
 export interface Product {
@@ -36,6 +36,7 @@ const HomePage: React.FC = () => {
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
   const [allProducts, setAllProducts] = useState<Product[]>([]);
   const [allCategories, setAllCategories] = useState<string[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const { isLoginSuccess } = useSelector(
     (state: RootState) => state.loginReducer
@@ -46,10 +47,15 @@ const HomePage: React.FC = () => {
   const categoryReducer = useSelector(
     (state: RootState) => state.categoryReducer
   );
+  const loaderReducer = useSelector((state: any) => state.loaderReducer);
 
   useEffect(() => {
     setAllProducts(productReducer.products);
   }, [productReducer]);
+
+  useEffect(() => {
+    setLoader(loaderReducer.loaderStatus);
+  }, [loaderReducer]);
 
   useEffect(() => {
     if (categoryReducer?.categories)
@@ -64,7 +70,7 @@ const HomePage: React.FC = () => {
     } else {
       setUserDetails(null);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (userDetails?.sub) {
@@ -77,18 +83,21 @@ const HomePage: React.FC = () => {
   return (
     <>
       <Header />
-      <Box m={4}>
-        <CategoryChip categories={allCategories} />
-        <Box
-          display='flex'
-          flexWrap='wrap'
-          gap='16px' // Space between cards
-        >
-          {allProducts.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
+
+      {loader ? ( // Show loader based on loader state
+        <Box className='loader-container-home'>
+          <CircularProgress color='inherit' />
         </Box>
-      </Box>
+      ) : (
+        <Box className='product-container'>
+          <CategoryChip categories={allCategories} />
+          <Box className='card-container'>
+            {allProducts.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Box>
+        </Box>
+      )}
     </>
   );
 };

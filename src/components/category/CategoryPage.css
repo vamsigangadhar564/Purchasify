@@ -13,3 +13,15 @@
     gap: 16px;
     /* Space between cards */
 }
+.loader-container-category {
+    position: fixed;
+    /* Fixed position to cover the whole viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}

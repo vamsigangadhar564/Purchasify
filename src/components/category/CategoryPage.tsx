@@ -1,12 +1,11 @@
-// CategoryPage.tsx
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import ProductCard from "../productCard/ProductCard";
 import Header from "../header/Header";
 import { useParams } from "react-router-dom";
 import { getCategory } from "../../reducers";
-import "./CategoryPage.css"; // Import the CSS file
+import "./CategoryPage.css";
 
 interface Product {
   id: number;
@@ -20,14 +19,20 @@ interface Product {
 const CategoryPage: React.FC = () => {
   const dispatch = useDispatch();
   const [allProducts, setAllProducts] = useState<Product[]>([]);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const productReducer = useSelector((state: any) => state.productReducer);
+  const loaderReducer = useSelector((state: any) => state.loaderReducer);
 
   const { category } = useParams<{ category: string }>();
 
   useEffect(() => {
     setAllProducts(productReducer.products);
   }, [productReducer]);
+
+  useEffect(() => {
+    setLoader(loaderReducer.loaderStatus);
+  }, [loaderReducer]);
 
   useEffect(() => {
     if (category) {
@@ -42,11 +47,18 @@ const CategoryPage: React.FC = () => {
         <Typography variant='h4' className='category-title'>
           {decodeURIComponent(category || "")}
         </Typography>
-        <Box className='card-container'>
-          {allProducts.map((product: Product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </Box>
+
+        {loader ? ( // Show loader based on loader state
+          <Box className='loader-container-category'>
+            <CircularProgress color='inherit' />
+          </Box>
+        ) : (
+          <Box className='card-container'>
+            {allProducts.map((product: Product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </Box>
+        )}
       </Box>
     </>
   );
