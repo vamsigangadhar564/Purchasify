@@ -1,0 +1,17 @@
+/* CustomAlert.css */
+.alert-container {
+    max-width: 98%;
+}
+
+.alert {
+    width: 100%;
+    font-size: 14px;
+}
+
+.alert-title {
+    font-size: 14px;
+}
+
+.alert-message {
+    overflow: auto;
+}
