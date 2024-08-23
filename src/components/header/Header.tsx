@@ -13,10 +13,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../redux/store";
 import "./Header.css"; // Import the CSS file
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const [cartTotal, setCartTotal] = useState<number>(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [showCart, setShowCart] = useState(true);
+
+  useEffect(() => {
+    if (location.pathname == "/cart" || location.pathname == "/success") {
+      setShowCart(false);
+    }
+  }, [location]);
 
   // Use useSelector with type RootState
   const cartReducer = useSelector((state: RootState) => state.cartReducer);
@@ -47,18 +57,22 @@ function Header() {
             </Box>
 
             <Box className='rightSection'>
-              <Badge
-                badgeContent={cartTotal}
-                className='badge'
-                color='secondary'>
-                <IconButton
-                  onClick={() => {
-                    navigate("/cart");
-                  }}
-                  className='iconButton'>
-                  <ShoppingCartIcon fontSize='large' className='icon' />
-                </IconButton>
-              </Badge>
+              {showCart ? (
+                <Badge
+                  badgeContent={cartTotal}
+                  className='badge'
+                  color='secondary'>
+                  <IconButton
+                    onClick={() => {
+                      navigate("/cart");
+                    }}
+                    className='iconButton'>
+                    <ShoppingCartIcon fontSize='large' className='icon' />
+                  </IconButton>
+                </Badge>
+              ) : (
+                ""
+              )}
               <ProfileMenu />
             </Box>
           </Box>

@@ -4,6 +4,7 @@ import HomePage from "../components/home/HomePage";
 import CategoryPage from "../components/category/CategoryPage";
 import ProductDetailsPage from "../components/productDetail/ProductDetailPage";
 import CartPage from "../components/cart/CartPage";
+import SuccessPage from "../components/success/SuccessPage";
 
 // Define the Route interface
 export interface RouteInterface {
@@ -41,6 +42,18 @@ const allRoutes: RouteInterface[] = [
   {
     path: "/cart",
     component: <CartPage />,
+    exact: true,
+    isProtected: true,
+  },
+  {
+    path: "/success",
+    component: <SuccessPage />,
+    exact: true,
+    isProtected: true,
+  },
+  {
+    path: "/",
+    component: <HomePage />,
     exact: true,
     isProtected: true,
   },
