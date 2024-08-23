@@ -40,3 +40,6 @@
     /* Optional: Adds a semi-transparent background */
     z-index: 1000;
 }
+.add-to-cart-container {
+    margin-top: 20px;
+}

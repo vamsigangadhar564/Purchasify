@@ -70,9 +70,9 @@ const ProductDetailsPage: React.FC = () => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(getProduct({ cartItems, productId }));
+      dispatch(getProduct({ productId }));
     }
-  }, [productId, dispatch, cartItems]);
+  }, [productId]);
 
   const handleIncrease = () => {
     dispatch(
@@ -144,33 +144,38 @@ const ProductDetailsPage: React.FC = () => {
                   precision={0.1}
                   readOnly
                 />
-                <Typography variant='body2' sx={{ marginTop: 1 }}>
+                <Typography variant='body2'>
                   {product.rating?.count || "0"} reviews
                 </Typography>
               </Box>
-              <Typography variant='h5' className='product-price'>
-                Price: ${product.price?.toFixed(2)}
-              </Typography>
 
-              {count > 0 ? (
-                <Box display='flex' alignItems='center'>
-                  <IconButton onClick={handleDecrease}>
-                    <RemoveIcon />
-                  </IconButton>
-                  <span>{count}</span>
-                  <IconButton onClick={handleIncrease}>
-                    <AddIcon />
-                  </IconButton>
-                </Box>
-              ) : (
-                <Button
-                  variant='contained'
-                  color='primary'
-                  onClick={handleToCart}
-                  className='add-to-cart-button'>
-                  Add to Cart
-                </Button>
-              )}
+              <Box className='product-price'>
+                <Typography variant='h5'>
+                  Price: ${product.price?.toFixed(2)}
+                </Typography>
+              </Box>
+
+              <Box className='add-to-cart-container'>
+                {count > 0 ? (
+                  <Box display='flex' alignItems='center'>
+                    <IconButton onClick={handleDecrease}>
+                      <RemoveIcon />
+                    </IconButton>
+                    <span>{count}</span>
+                    <IconButton onClick={handleIncrease}>
+                      <AddIcon />
+                    </IconButton>
+                  </Box>
+                ) : (
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    onClick={handleToCart}
+                    className='add-to-cart-button'>
+                    Add to Cart
+                  </Button>
+                )}
+              </Box>
             </Grid>
           </Grid>
         </Box>
