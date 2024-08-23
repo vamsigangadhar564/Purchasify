@@ -24,8 +24,8 @@ const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [userName, setUserName] = useState<string>("mor_2314");
-  const [password, setPassword] = useState<string>("83r5^_");
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [loader, setLoader] = useState<boolean>(false);
 
   // Assuming the state shape
@@ -94,13 +94,6 @@ const LoginPage: React.FC = () => {
               setPassword(e.target.value);
             }}
           />
-          <Box className='checkBoxContainer'>
-            <FormControlLabel
-              control={<Checkbox defaultChecked />}
-              label='Remember me'
-            />
-            <Button sx={{ color: "black" }}>Reset Password</Button>
-          </Box>
           <LoadingButton
             color='primary'
             onClick={handleSave}
@@ -110,14 +103,6 @@ const LoginPage: React.FC = () => {
             <span> sign in</span>
           </LoadingButton>
         </Stack>
-        <Box className='signUp'>
-          <Typography
-            sx={{ display: "flex", alignItems: "center" }}
-            variant='body1'>
-            Don't have an account?
-          </Typography>
-          <Button variant='text'>sign up</Button>
-        </Box>
       </Box>
     </Box>
   );
